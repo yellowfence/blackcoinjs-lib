@@ -43,6 +43,16 @@ var networks = {
     feePerKb: 100000, // https://github.com/litecoin-project/litecoin/blob/v0.8.7.2/src/main.cpp#L56
     estimateFee: estimateFee('litecoin')
   },
+  blackcoin: {
+    magicPrefix: '\x1ABlackCoin Signed Message:\n',
+    pubKeyHash: 0x19,
+    scriptHash: 0x55,
+    wif: 0x99,
+    dustThreshold: 0,
+    feePerKb: 10000,
+    staticFee: 10000,
+    estimateFee: estimateFee('blackcoin')
+  },
   testnet: {
     magicPrefix: '\x18Bitcoin Signed Message:\n',
     bip32: {
@@ -65,6 +75,7 @@ function estimateFee(type) {
     var byteSize = tx.toBuffer().length
 
     var fee = baseFee * Math.ceil(byteSize / 1000)
+    if (network.staticFee) fee += staticFee;
     if (network.dustSoftThreshold == undefined) return fee
 
     tx.outs.forEach(function(e){

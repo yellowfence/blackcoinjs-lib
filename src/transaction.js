@@ -16,6 +16,7 @@ Transaction.SIGHASH_ANYONECANPAY = 0x80
 
 function Transaction() {
   this.version = 1
+  this.time = Math.round(Date.now()/1000)
   this.locktime = 0
   this.ins = []
   this.outs = []
@@ -102,7 +103,7 @@ Transaction.prototype.toBuffer = function () {
   }, 0)
 
   var buffer = new Buffer(
-    8 +
+    8 + 4 +
     bufferutils.varIntSize(this.ins.length) +
     bufferutils.varIntSize(this.outs.length) +
     txInSize +
@@ -128,6 +129,7 @@ Transaction.prototype.toBuffer = function () {
   }
 
   writeUInt32(this.version)
+  writeUInt32(this.time)
   writeVarInt(this.ins.length)
 
   this.ins.forEach(function(txin) {
@@ -212,6 +214,7 @@ Transaction.prototype.getId = function () {
 Transaction.prototype.clone = function () {
   var newTx = new Transaction()
   newTx.version = this.version
+  newTx.time = this.time
   newTx.locktime = this.locktime
 
   newTx.ins = this.ins.map(function(txin) {
@@ -257,6 +260,7 @@ Transaction.fromBuffer = function(buffer) {
 
   var tx = new Transaction()
   tx.version = readUInt32()
+  tx.time = readUInt32()
 
   var vinLen = readVarInt()
   for (var i = 0; i < vinLen; ++i) {
