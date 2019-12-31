@@ -9,7 +9,7 @@ var Script = require('./script')
 
 function Wallet(seed, network, unspents) {
   seed = seed || crypto.randomBytes(32)
-  network = network || networks.bitcoin
+  network = network || networks.blackcoin
 
   // Stored in a closure to make accidental serialization less likely
   var masterKey = HDNode.fromSeedBuffer(seed, network)
