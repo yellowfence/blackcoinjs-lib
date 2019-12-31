@@ -31,7 +31,7 @@ Address.fromBase58Check = function(string) {
 }
 
 Address.fromOutputScript = function(script, network) {
-  network = network || networks.bitcoin
+  network = network || networks.blackcoin
 
   var type = scripts.classifyOutput(script)
 
