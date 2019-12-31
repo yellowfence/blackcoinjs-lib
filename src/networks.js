@@ -44,10 +44,10 @@ var networks = {
     estimateFee: estimateFee('litecoin')
   },
   blackcoin: {
-    magicPrefix: '\x1ABlackCoin Signed Message:\n',
-    pubKeyHash: 0x19,
-    scriptHash: 0x55,
-    wif: 0x99,
+    magicPrefix: '\x1Tao Signed Message:\n',
+    pubKeyHash: 0x42,
+    scriptHash: 0x03,
+    wif: 0x4c,
     dustThreshold: 0,
     feePerKb: 10000,
     staticFee: 10000,
