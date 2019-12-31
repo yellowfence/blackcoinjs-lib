@@ -18,6 +18,7 @@ function Transaction() {
   this.version = 1
   this.time = Math.round(Date.now()/1000)
   this.locktime = 0
+  this.data = []
   this.ins = []
   this.outs = []
 }
@@ -89,6 +90,7 @@ Transaction.prototype.addOutput = function(scriptPubKey, value) {
 
   return (this.outs.push({
     script: scriptPubKey,
+    utxoid: 0,
     value: value
   }) - 1)
 }
@@ -148,6 +150,8 @@ Transaction.prototype.toBuffer = function () {
   })
 
   writeUInt32(this.locktime)
+  writeVarInt(this.data.buffer.length)
+  writeSlice(this.data.buffer)
 
   return buffer
 }
@@ -216,6 +220,7 @@ Transaction.prototype.clone = function () {
   newTx.version = this.version
   newTx.time = this.time
   newTx.locktime = this.locktime
+  newTx.data = this.data
 
   newTx.ins = this.ins.map(function(txin) {
     return {
@@ -229,6 +234,7 @@ Transaction.prototype.clone = function () {
   newTx.outs = this.outs.map(function(txout) {
     return {
       script: txout.script,
+      script: txout.utxoid,
       value: txout.value
     }
   })
@@ -291,6 +297,9 @@ Transaction.fromBuffer = function(buffer) {
   }
 
   tx.locktime = readUInt32()
+  var dataLen = readVarInt()
+  var data = readSlice(dataLen)
+  tx.data = Script.fromBuffer(data);
   assert.equal(offset, buffer.length, 'Transaction has unexpected data')
 
   return tx
