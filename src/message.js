@@ -24,7 +24,7 @@ function magicHash(message, network) {
 }
 
 function sign(privKey, message, network) {
-  network = network || networks.bitcoin
+  network = network || networks.blackcoin
 
   var hash = magicHash(message, network)
   var signature = privKey.sign(hash)
@@ -39,7 +39,7 @@ function verify(address, signatureBuffer, message, network) {
   if (address instanceof Address) {
     address = address.toString()
   }
-  network = network || networks.bitcoin
+  network = network || networks.blackcoin
 
   var hash = magicHash(message, network)
   var parsed = ECSignature.parseCompact(signatureBuffer)
