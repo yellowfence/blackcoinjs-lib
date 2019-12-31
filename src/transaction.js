@@ -15,7 +15,7 @@ Transaction.SIGHASH_SINGLE = 0x03
 Transaction.SIGHASH_ANYONECANPAY = 0x80
 
 function Transaction() {
-  this.version = 0x100001
+  this.version = 29696
   this.time = Math.round(Date.now()/1000)
   this.locktime = 0
   this.data = Script.EMPTY
