@@ -30,7 +30,7 @@ ECPubKey.fromHex = function(hex) {
 
 // Operations
 ECPubKey.prototype.getAddress = function(network) {
-  network = network || networks.bitcoin
+  network = network || networks.blackcoin
 
   return new Address(crypto.hash160(this.toBuffer()), network.pubKeyHash)
 }
