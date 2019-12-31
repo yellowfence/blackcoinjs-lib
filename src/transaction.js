@@ -99,14 +99,16 @@ Transaction.prototype.addOutput = function(scriptPubKey, value) {
 
 Transaction.prototype.toBuffer = function () {
   var txInSize = this.ins.reduce(function(a, x) {
-    console.log("a")
-    console.log(a)
     return a + (40 + bufferutils.varIntSize(x.script.buffer.length) + x.script.buffer.length)
   }, 0)
 
   var txOutSize = this.outs.reduce(function(a, x) {
     return a + (8 + bufferutils.varIntSize(x.script.buffer.length) + x.script.buffer.length)
   }, 0)
+  console.log("txInSize");
+  console.log(txInSize);
+  console.log("txOutSize");
+  console.log(txOutSize);
 
   var buffer = new Buffer(
     8 + 4 +
