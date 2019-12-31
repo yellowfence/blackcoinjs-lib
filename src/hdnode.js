@@ -28,7 +28,7 @@ function findBIP32ParamsByVersion(version) {
 }
 
 function HDNode(K, chainCode, network) {
-  network = network || networks.bitcoin
+  network = network || networks.blackcoin
 
   assert(Buffer.isBuffer(chainCode), 'Expected Buffer, got ' + chainCode)
   assert.equal(chainCode.length, 32, 'Expected chainCode length of 32, got ' + chainCode.length)
