@@ -147,6 +147,7 @@ Transaction.prototype.toBuffer = function () {
   writeVarInt(this.outs.length)
   this.outs.forEach(function(txout) {
     writeUInt64(txout.value)
+    writeUInt64(txout.utxoid)
     writeVarInt(txout.script.buffer.length)
     writeSlice(txout.script.buffer)
   })
@@ -239,7 +240,7 @@ Transaction.prototype.clone = function () {
   newTx.outs = this.outs.map(function(txout) {
     return {
       script: txout.script,
-      script: txout.utxoid,
+      utxoid: txout.utxoid,
       value: txout.value
     }
   })
@@ -297,6 +298,7 @@ Transaction.fromBuffer = function(buffer) {
 
     tx.outs.push({
       value: value,
+      utxoid: 0,
       script: Script.fromBuffer(script)
     })
   }
