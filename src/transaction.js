@@ -111,7 +111,7 @@ Transaction.prototype.toBuffer = function () {
   console.log(txOutSize);
 
   var buffer = new Buffer(
-    8 + 4 + 8 +
+    8 + 4 + 9 +
     bufferutils.varIntSize(this.ins.length) +
     bufferutils.varIntSize(this.outs.length) +
     txInSize +
