@@ -19,6 +19,7 @@ function Transaction() {
   this.time = Math.round(Date.now()/1000)
   this.locktime = 0
   this.data = Script.EMPTY
+  this.nDoS = 0
   this.ins = []
   this.outs = []
 }
