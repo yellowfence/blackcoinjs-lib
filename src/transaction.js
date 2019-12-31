@@ -152,7 +152,6 @@ Transaction.prototype.toBuffer = function () {
     writeSlice(txout.script.buffer)
   })
   
-  writeVarInt(this.data.buffer.length)
   writeSlice(this.data.buffer)
   writeUInt32(this.locktime)
   
