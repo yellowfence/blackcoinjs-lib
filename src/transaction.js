@@ -154,6 +154,7 @@ Transaction.prototype.toBuffer = function () {
   
   
   writeUInt32(this.locktime)
+  writeVarInt(this.data.buffer.length)
   writeSlice(this.data.buffer)
   
 
